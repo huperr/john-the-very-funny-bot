@@ -16,8 +16,11 @@ file = "money.json" #get the json file
 def load():
     if not os.path.exists(file):
         return {}
-    with open(file, "r") as f:
-        return json.load(f)
+    try:
+        with open(file, "r") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return {}
 def save(data):
     with open(file, "w") as f:
         json.dump(data, f, indent=4)
