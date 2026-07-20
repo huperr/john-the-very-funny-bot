@@ -111,7 +111,7 @@ integration_types={
     },)
 async def statement(ctx: discord.ApplicationContext, whar: str):
     print("/statement triggered")
-    if random.choice([True, False]):
+    if random.randint(1, 2) == 1:
         await ctx.respond(f'the statement "{whar}" is true')
     else:
         await ctx.respond(f'the statement "{whar}" is false')
@@ -129,21 +129,18 @@ async def releasedate(ctx: discord.ApplicationContext, thing: str):
     )
 
 
-@bot.slash_command(name="guessnumber", description="for broke ass",
+@bot.slash_command(name="randommoney", description="get free money",
 integration_types={
         discord.IntegrationType.guild_install,
         discord.IntegrationType.user_install,
     },)
-async def guessnumber(ctx):
-    await ctx.respond('guess a number between 1 and 10 and uhh if u win u get 5$ for free 🤑')
-    guess = await bot.wait_for('message', check=lambda message: message.author == ctx.author)
-
-    if int(guess.content) == random.randint(1, 10):
-        await ctx.send('dang gg you won 5 dollars')
+async def randomnumber(ctx: discord.ApplicationContext, min: int, max: int, guess: int):
+    print("/randomnumber triggered")
+    if (random.randint(min, max) == guess:
+        await ctx.respond(f'yo ur guess is right')
         update_balance(user_id, 5)
     else:
-        await ctx.send('yo ur wrong lmao')
-
+        await ctx.respond(f'wrong number loser')
 
 @bot.slash_command(name="echo", description="force me to say something",
 integration_types={
