@@ -136,6 +136,7 @@ integration_types={
     },)
 async def randommoney(ctx: discord.ApplicationContext, guess: int):
     print("/randommoney triggered")
+    user_id = ctx.author.id
     if (random.randint(1, 10)) == guess:
         await ctx.respond(f'yo ur guess is right')
         update_balance(user_id, 5)
@@ -148,7 +149,7 @@ integration_types={
         discord.IntegrationType.user_install,
     },)
 async def echo(ctx: discord.ApplicationContext, password: int, saywhat: str):
-    if password == 6769:
+    if password == 17293622929628292728798478974847979234792487289472347:
         await ctx.respond(saywhat)
     else:
         await ctx.respond(f"yo wrong password {ctx.author.mention}")
