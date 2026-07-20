@@ -129,14 +129,14 @@ async def releasedate(ctx: discord.ApplicationContext, thing: str):
     )
 
 
-@bot.slash_command(name="randommoney", description="get free money",
+@bot.slash_command(name="randommoney", description="get free money by guessing number from 1 to 10",
 integration_types={
         discord.IntegrationType.guild_install,
         discord.IntegrationType.user_install,
     },)
-async def randommoney(ctx: discord.ApplicationContext, min: int, max: int, guess: int):
-    print("/randomnumber triggered")
-    if (random.randint(min, max)) == guess:
+async def randommoney(ctx: discord.ApplicationContext, guess: int):
+    print("/randommoney triggered")
+    if (random.randint(1, 10)) == guess:
         await ctx.respond(f'yo ur guess is right')
         update_balance(user_id, 5)
     else:
