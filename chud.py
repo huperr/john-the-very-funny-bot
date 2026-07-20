@@ -37,7 +37,15 @@ def update_balance(user_id, amount):
     user_id = str(user_id)
     balances[user_id] = get_balance(user_id) + amount
     save(balances)
+#button thingy
+lass reveal(discord.ui.View):
+    def __init__(self, content: str):
+        super().__init__(timeout=60) #just for a minute cuz yes
+        self.content = content
 
+    @discord.ui.button(label="reveal", style=discord.ButtonStyle.primary)
+    async def reveal_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await interaction.response.send_message(self.content, ephemeral=True)
 
 @bot.event
 async def on_ready():
@@ -172,6 +180,17 @@ async def gunner(ctx: discord.ApplicationContext, user: discord.Member):
         await ctx.respond(
             f'{ctx.author.mention} shot {user.mention} {random.randint(1, 100)} times with his gun'
         )
+
+@bot.slash_command(name="reveal", description="kinda like spoiler but funnier",
+                  integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def reveal(
+    ctx: discord.ApplicationContext,
+    content: discord.Option(str, "spoiler text")
+):
+    await ctx.respond("press dis for funny", view=RevealView(content))
 
 
 bot.run(os.getenv("TOKEN"))
