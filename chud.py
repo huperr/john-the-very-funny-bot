@@ -111,11 +111,10 @@ integration_types={
     },)
 async def statement(ctx: discord.ApplicationContext, whar: str):
     print("/statement triggered")
-    await ctx.respond(
-        f'the statement "{whar}" is true'
-        if random.choice([True, False])
-        else f'the statement "{whar}" is false'
-    )
+    if random.choice([True, False]):
+        await ctx.respond(f'the statement "{whar}" is true')
+    else:
+        await ctx.respond(f'the statement "{whar}" is false')
 
 
 @bot.slash_command(name="releasedate",
@@ -129,6 +128,33 @@ async def releasedate(ctx: discord.ApplicationContext, thing: str):
         f'{thing} will be released in {random.randint(1, 1000)} days'
     )
 
+
+@bot.slash_command(name="guessnumber", description="for broke ass",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def guessnumber(ctx):
+    await ctx.respond('guess a number between 1 and 10 and uhh if u win u get 5$ for free 🤑')
+    guess = await bot.wait_for('message', check=lambda message: message.author == ctx.author)
+
+    if int(guess.content) == random.randint(1, 10):
+        await ctx.send('dang gg you won 5 dollars')
+        update_balance(user_id, 5)
+    else:
+        await ctx.send('yo ur wrong lmao')
+
+
+@bot.slash_command(name="echo", description="force me to say something",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def releasedate(ctx: discord.ApplicationContext, password: int, saywhat: str):
+    if password == 6769:
+        await ctx.send(saywhat)
+    else:
+        await ctx.send(f"yo wrong password {ctx.author.mention}")
 
 @bot.slash_command(name="gunner",
 integration_types={
