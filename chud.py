@@ -134,9 +134,9 @@ integration_types={
         discord.IntegrationType.guild_install,
         discord.IntegrationType.user_install,
     },)
-async def randomnumber(ctx: discord.ApplicationContext, min: int, max: int, guess: int):
+async def randommoney(ctx: discord.ApplicationContext, min: int, max: int, guess: int):
     print("/randomnumber triggered")
-    if (random.randint(min, max) == guess:
+    if (random.randint(min, max)) == guess:
         await ctx.respond(f'yo ur guess is right')
         update_balance(user_id, 5)
     else:
@@ -147,11 +147,11 @@ integration_types={
         discord.IntegrationType.guild_install,
         discord.IntegrationType.user_install,
     },)
-async def releasedate(ctx: discord.ApplicationContext, password: int, saywhat: str):
+async def echo(ctx: discord.ApplicationContext, password: int, saywhat: str):
     if password == 6769:
-        await ctx.send(saywhat)
+        await ctx.respond(saywhat)
     else:
-        await ctx.send(f"yo wrong password {ctx.author.mention}")
+        await ctx.respond(f"yo wrong password {ctx.author.mention}")
 
 @bot.slash_command(name="gunner",
 integration_types={
