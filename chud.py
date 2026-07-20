@@ -38,7 +38,7 @@ def update_balance(user_id, amount):
     balances[user_id] = get_balance(user_id) + amount
     save(balances)
 #button thingy
-lass RevealView(discord.ui.View):
+class RevealView(discord.ui.View):
     def __init__(self, content: str):
         super().__init__(timeout=60) #just for a minute cuz yes
         self.content = content
