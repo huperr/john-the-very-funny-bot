@@ -1,60 +1,65 @@
 import discord
 import random
-import json #storing shit
-import os 
+import json
+import os
 from dotenv import load_dotenv
 
-load_dotenv() # load all the variables from the env file
+load_dotenv()
+
 bot = discord.Bot()
 
-#note: await ctx.respond("thing") -> says something
+file = "money.json"
 
-#thing :D
-file = "money.json" #get the json file
-
-#save n load
+# save/load
 def load():
     if not os.path.exists(file):
         return {}
-    try:
-        with open(file, "r") as f:
-            return json.load(f)
-    except json.JSONDecodeError:
-        return {}
+    with open(file, "r") as f:
+        return json.load(f)
+
 def save(data):
     with open(file, "w") as f:
         json.dump(data, f, indent=4)
 
-#not illegal at all trust me man
+
+balances = load()
+
 def get_balance(user_id):
     user_id = str(user_id)
-    if user_id not in balances: #havent gamble.. yet
-        balances[user_id] = 67 #67 is the best number
+    if user_id not in balances:
+        balances[user_id] = 67
         save(balances)
     return balances[user_id]
-#update money
+
 def update_balance(user_id, amount):
     user_id = str(user_id)
     balances[user_id] = get_balance(user_id) + amount
     save(balances)
-#money
-balances = load()
+
 
 @bot.event
 async def on_ready():
     print(f"{bot.user} is FUCKING ready!")
-#say hello :)
-@bot.slash_command(name="hello", description="say hello to john :)")
+
+
+@bot.slash_command(name="hello", description="say hello to john :)",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
 async def hello(ctx: discord.ApplicationContext):
+    print("/hello triggered")
     await ctx.respond("yo man")
-#gamble for kiddo
-@bot.slash_command(name="checkmoney", description="see how broke you are :D")
+
+
+@bot.slash_command(name="checkmoney", description="see how broke you are :D",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
 async def checkmoney(ctx: discord.ApplicationContext):
     monei = get_balance(ctx.author.id)
-    #this shit is your money boys
-    #make the bot more awesome
-    #idk
-    #fuck
+    print("/checkmoney triggered")
     if monei < 40:
         await ctx.respond(f"yo you have {monei} broke ass")
     elif monei < 80:
@@ -63,24 +68,83 @@ async def checkmoney(ctx: discord.ApplicationContext):
         await ctx.respond(f"my king... {monei} is your balance...")
     else:
         await ctx.respond(f"how the fuck do you have {monei}$???")
-#gamble (for kid (not illegal (trust me (100%))))
-@bot.slash_command(name="gamble", description="the most important command ever..")
-async def gamble(ctx: discord.ApplicationContext, amount: int): #amount = bet amount :D
-    #get our (legal) gambler data:
+
+
+@bot.slash_command(name="gamble", description="the most important command ever..",integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def gamble(ctx: discord.ApplicationContext, amount: int):
     user_id = ctx.author.id
     monei = get_balance(user_id)
-    #rule thing ig idk
+    print("/gamble triggered")
     if amount <= 0:
-        await ctx.respond("you bet nothing sir") #lol
+        await ctx.respond("you bet nothing sir")
         return
+
     if amount > monei:
-        await ctx.respond("look at your wallet broke ass") #im sorry
+        await ctx.respond("look at your wallet broke ass")
         return
-    #real gamble not rigged at all trust me
+
     if random.choice([True, False]):
-        update_balance(user_id, amount) #win big
+        update_balance(user_id, amount)
         await ctx.respond(f"no way you just won {amount}$!!")
     else:
-        update_balance(user_id, -amount) #lose all
+        update_balance(user_id, -amount)
         await ctx.respond(f"you lose {amount}$")
-bot.run(os.getenv('TOKEN')) # run the bot with the token
+
+
+@bot.slash_command(name="randomnumber", description="choose random thing",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def randomnumber(ctx: discord.ApplicationContext, min: int, max: int):
+    print("/randomnumber triggered")
+    await ctx.respond(random.randint(min, max))
+
+
+@bot.slash_command(name="statement",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def statement(ctx: discord.ApplicationContext, whar: str):
+    print("/statement triggered")
+    await ctx.respond(
+        f'the statement "{whar}" is true'
+        if random.choice([True, False])
+        else f'the statement "{whar}" is false'
+    )
+
+
+@bot.slash_command(name="releasedate",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def releasedate(ctx: discord.ApplicationContext, thing: str):
+    print("/releasedate triggered")
+    await ctx.respond(
+        f'{thing} will be released in {random.randint(1, 1000)} days'
+    )
+
+
+@bot.slash_command(name="gunner",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def gunner(ctx: discord.ApplicationContext, user: discord.Member):
+    print("/gunner triggered")
+    if random.choice([True, False]):
+        await ctx.respond(
+            f'{ctx.author.mention} tried to shoot {user.mention} but there is no bullet in the gun'
+        )
+    else:
+        await ctx.respond(
+            f'{ctx.author.mention} shot {user.mention} {random.randint(1, 100)} times with his gun'
+        )
+
+
+bot.run(os.getenv("TOKEN"))
