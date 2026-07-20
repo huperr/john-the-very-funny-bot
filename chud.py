@@ -8,7 +8,7 @@ load_dotenv()
 
 bot = discord.Bot()
 
-exclusiveId = int(os.getenv("exclusiveId")) #hhahahha only i can use this hhahahah
+exclusiveId = 1214854217706110998 #hhahahha only i can use this hhahahah
 
 file = "money.json"
 
