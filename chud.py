@@ -148,8 +148,8 @@ integration_types={
         discord.IntegrationType.guild_install,
         discord.IntegrationType.user_install,
     },)
-async def echo(ctx: discord.ApplicationContext, password: int, saywhat: str):
-    if password == 17293622929628292728798478974847979234792487289472347:
+async def echo(ctx: discord.ApplicationContext, password: str, saywhat: str):
+    if password == "tung tung tung sahur is the best":
         await ctx.respond(saywhat)
     else:
         await ctx.respond(f"yo wrong password {ctx.author.mention}")
