@@ -8,6 +8,8 @@ load_dotenv()
 
 bot = discord.Bot()
 
+exclusiveId = int(os.getenv("exclusiveId") #hhahahha only i can use this hhahahah
+
 file = "money.json"
 
 # save/load
@@ -148,11 +150,12 @@ integration_types={
         discord.IntegrationType.guild_install,
         discord.IntegrationType.user_install,
     },)
-async def echo(ctx: discord.ApplicationContext, password: str, saywhat: str):
-    if password == "tung tung tung sahur is the best":
+async def echo(ctx: discord.ApplicationContext, saywhat: str):
+    print("/echo triggered")
+    if ctx.author.id == exclusiveId:
         await ctx.respond(saywhat)
     else:
-        await ctx.respond(f"yo wrong password {ctx.author.mention}")
+        await ctx.respond(f"yo you don't have perm {ctx.author.mention}")
 
 @bot.slash_command(name="gunner",
 integration_types={
