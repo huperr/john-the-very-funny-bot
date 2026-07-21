@@ -173,6 +173,11 @@ integration_types={
 async def commit(ctx: discord.ApplicationContext, commit: str):
     await ctx.respond(f"{ctx.author.mention} commit {commit}")
 #-------------------------------------------------------------
+@bot.slash_command(name="gunner", description="shot someone (can be u)",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
 async def gunner(ctx: discord.ApplicationContext, user: discord.Member):
     print("/gunner triggered")
     if random.choice([True, False]):
