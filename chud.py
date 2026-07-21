@@ -50,7 +50,7 @@ class RevealView(discord.ui.View):
 @bot.event
 async def on_ready():
     print(f"{bot.user} is FUCKING ready!")
-
+#-------------------------------------------------------------
 
 @bot.slash_command(name="hello", description="say hello to john :)",
 integration_types={
@@ -61,7 +61,7 @@ async def hello(ctx: discord.ApplicationContext):
     print("/hello triggered")
     await ctx.respond("yo man")
 
-
+#-----------------------------------------------------
 @bot.slash_command(name="checkmoney", description="see how broke you are :D",
 integration_types={
         discord.IntegrationType.guild_install,
@@ -78,7 +78,7 @@ async def checkmoney(ctx: discord.ApplicationContext):
         await ctx.respond(f"my king... {monei} is your balance...")
     else:
         await ctx.respond(f"how the fuck do you have {monei}$???")
-
+#--------------------------------------------------
 
 @bot.slash_command(name="gamble", description="the most important command ever..",integration_types={
         discord.IntegrationType.guild_install,
@@ -102,7 +102,7 @@ async def gamble(ctx: discord.ApplicationContext, amount: int):
     else:
         update_balance(user_id, -amount)
         await ctx.respond(f"you lose {amount}$")
-
+#------------------------------------------------------
 
 @bot.slash_command(name="randomnumber", description="choose random thing",
 integration_types={
@@ -112,7 +112,7 @@ integration_types={
 async def randomnumber(ctx: discord.ApplicationContext, min: int, max: int):
     print("/randomnumber triggered")
     await ctx.respond(random.randint(min, max))
-
+#-------------------------------------------------------
 
 @bot.slash_command(name="statement",
 integration_types={
@@ -125,7 +125,7 @@ async def statement(ctx: discord.ApplicationContext, whar: str):
         await ctx.respond(f'the statement "{whar}" is true')
     else:
         await ctx.respond(f'the statement "{whar}" is false')
-
+#-------------------------------------------------------------
 
 @bot.slash_command(name="releasedate",
 integration_types={
@@ -138,7 +138,7 @@ async def releasedate(ctx: discord.ApplicationContext, thing: str):
         f'{thing} will be released in {random.randint(1, 1000)} days'
     )
 
-
+#--------------------------------------------------------
 @bot.slash_command(name="randommoney", description="get free money by guessing number from 1 to 10",
 integration_types={
         discord.IntegrationType.guild_install,
@@ -152,7 +152,7 @@ async def randommoney(ctx: discord.ApplicationContext, guess: int):
         update_balance(user_id, 5)
     else:
         await ctx.respond(f'wrong number loser')
-
+#-------------------------------------------------------
 @bot.slash_command(name="echo", description="force me to say something",
 integration_types={
         discord.IntegrationType.guild_install,
@@ -164,12 +164,15 @@ async def echo(ctx: discord.ApplicationContext, saywhat: str):
         await ctx.respond(saywhat)
     else:
         await ctx.respond(f"yo you don't have perm {ctx.author.mention}")
-
-@bot.slash_command(name="gunner",
+#----------------------------------------------------------
+@bot.slash_command(name="commit", description="no",
 integration_types={
         discord.IntegrationType.guild_install,
         discord.IntegrationType.user_install,
     },)
+async def commit(ctx: discord.ApplicationContext, commit: str):
+    await ctx.respond(f"{ctx.author.mention} commit {commit}")
+#-------------------------------------------------------------
 async def gunner(ctx: discord.ApplicationContext, user: discord.Member):
     print("/gunner triggered")
     if random.choice([True, False]):
@@ -180,7 +183,7 @@ async def gunner(ctx: discord.ApplicationContext, user: discord.Member):
         await ctx.respond(
             f'{ctx.author.mention} shot {user.mention} {random.randint(1, 100)} times with his gun'
         )
-
+#-------------------------------------------------------------
 @bot.slash_command(name="reveal", description="kinda like spoiler but funnier",
                   integration_types={
         discord.IntegrationType.guild_install,
