@@ -69,15 +69,19 @@ integration_types={
     },)
 async def repeat(ctx: discord.ApplicationContext, amount: int, message: str):
     print("/repeat triggered")
-    if amount <= 0:
-        await ctx.respond("no u")
-        return
-    if amount > 25:
-        await ctx.respond("yo this guy wanna flood the chat using me")
-        return
-    await ctx.respond("ok man")
-    for _ in range(amount):
-        await ctx.respond(message)
+    #----------------------
+    if ctx.author.id == exclusiveId:
+        if amount <= 0:
+            await ctx.respond("no u")
+            return
+        if amount > 25:
+            await ctx.respond("yo this guy wanna flood the chat using me")
+            return
+        await ctx.respond("ok man")
+        for _ in range(amount):
+            await ctx.respond(message) 
+    else:
+        await ctx.respond(f"yo you don't have perm {ctx.author.mention}")
 #-----------------------------------------------------
 @bot.slash_command(name="checkmoney", description="see how broke you are :D",
 integration_types={
