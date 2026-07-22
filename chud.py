@@ -88,7 +88,7 @@ integration_types={
         discord.IntegrationType.guild_install,
         discord.IntegrationType.user_install,
     },)
-async def echo(ctx: discord.ApplicationContext, say: str, replacespace: str):
+async def space(ctx: discord.ApplicationContext, say: str, replacespace: str):
     print("/space triggered")
     if ctx.author.id in exclusiveId:
         await ctx.respond(say.replace(" ", replacespace)) #this is pretty cool ngl :D
