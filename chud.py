@@ -83,7 +83,7 @@ async def repeat(ctx: discord.ApplicationContext, amount: int, message: str):
     else:
         await ctx.respond(f"yo you don't have perm {ctx.author.mention}")
 #-----------------------------------------------------
-bot.slash_command(name="space", description="replace space with something idk",
+@bot.slash_command(name="space", description="replace space with something idk",
 integration_types={
         discord.IntegrationType.guild_install,
         discord.IntegrationType.user_install,
