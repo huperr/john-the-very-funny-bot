@@ -83,6 +83,18 @@ async def repeat(ctx: discord.ApplicationContext, amount: int, message: str):
     else:
         await ctx.respond(f"yo you don't have perm {ctx.author.mention}")
 #-----------------------------------------------------
+bot.slash_command(name="space", description="replace space with something idk",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def echo(ctx: discord.ApplicationContext, say: str, replacespace: str):
+    print("/space triggered")
+    if ctx.author.id in exclusiveId:
+        await ctx.respond(say.replace(" ", replacespace)) #this is pretty cool ngl :D
+    else:
+        await ctx.respond(f"yo you don't have perm {ctx.author.mention}")
+#-----------------------------------------------------
 @bot.slash_command(name="checkmoney", description="see how broke you are :D",
 integration_types={
         discord.IntegrationType.guild_install,
