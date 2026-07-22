@@ -8,7 +8,7 @@ load_dotenv()
 
 bot = discord.Bot()
 
-exclusiveId = 1214854217706110998 #hhahahha only i can use this hhahahah
+exclusiveId = [1214854217706110998, 1193488689867804723] #perms
 
 file = "money.json"
 
@@ -70,7 +70,7 @@ integration_types={
 async def repeat(ctx: discord.ApplicationContext, amount: int, message: str):
     print("/repeat triggered")
     #----------------------
-    if ctx.author.id == exclusiveId:
+    if ctx.author.id in exclusiveId:
         if amount <= 0:
             await ctx.respond("no u")
             return
@@ -181,7 +181,7 @@ integration_types={
     },)
 async def echo(ctx: discord.ApplicationContext, saywhat: str):
     print("/echo triggered")
-    if ctx.author.id == exclusiveId:
+    if ctx.author.id in exclusiveId:
         await ctx.respond(saywhat)
     else:
         await ctx.respond(f"yo you don't have perm {ctx.author.mention}")
