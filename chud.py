@@ -77,7 +77,7 @@ async def repeat(ctx: discord.ApplicationContext, amount: int, message: str):
         return
     await ctx.respond("ok man")
     for _ in range(amount):
-        await ctx.send(message)
+        await ctx.respond(message)
 #-----------------------------------------------------
 @bot.slash_command(name="checkmoney", description="see how broke you are :D",
 integration_types={
