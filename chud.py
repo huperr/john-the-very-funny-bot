@@ -61,6 +61,23 @@ async def hello(ctx: discord.ApplicationContext):
     print("/hello triggered")
     await ctx.respond("yo man")
 
+#-----------------------------------------------------spam lol
+@bot.slash_command(name="repeat", description="dont spam plz",
+integration_types={
+        discord.IntegrationType.guild_install,
+        discord.IntegrationType.user_install,
+    },)
+async def repeat(ctx: discord.ApplicationContext, amount: int, message: str):
+    print("/repeat triggered")
+    if amount <= 0:
+        await ctx.respond("no u")
+        return
+    if amount > 25:
+        await ctx.respond("yo this guy wanna flood the chat using me")
+        return
+    await ctx.respond("ok man")
+    for _ in range(amount):
+        await ctx.send(message)
 #-----------------------------------------------------
 @bot.slash_command(name="checkmoney", description="see how broke you are :D",
 integration_types={
